@@ -35,15 +35,16 @@ public class ServidorBuffer
 
 
 
-	public boolean enviarMensaje(Mensaje message)
+	public synchronized boolean enviarMensaje(Mensaje message)
 	{
-		try{
-		notify();
-		ultimoMensajeEnPos +=1;
-		mensajes[ultimoMensajeEnPos] = message;
-		return true;
+		if(ultimoMensajeEnPos>0)
+		{
+			notify();
+			ultimoMensajeEnPos +=1;
+			mensajes[ultimoMensajeEnPos] = message;
+			return true;
 		}
-		catch(Exception e)
+		else
 		{
 			return false;
 		}
