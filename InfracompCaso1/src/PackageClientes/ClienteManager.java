@@ -1,10 +1,16 @@
 package PackageClientes;
 
-public class ClienteManager {
+public class ClienteManager
+{
+	private Cliente [] listaClientes;
+	
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public ClienteManager(int numClientes, int [] numMensajesPorCliente)
+	{
+		for(int i=0; i< numClientes; i++)
+		{
+			listaClientes[i] = new Cliente(numMensajesPorCliente[0]);
+		}
 	}
 
 }

@@ -18,26 +18,17 @@ public class ServidorBuffer
 	 * Adicionalmente, debe recibir los mensajes de los clientes en una cola de mensajes
 	 */
 
-	
-	/**
-	 * Variable para tener un control sobre los clientes que llegan
-	 */
-	private int numMaxClientesPosibles;
+
 	/**
 	 * Variable que representa la cola de mensajes que esperan a ser atendidos
 	 */
 	private Mensaje [] Mensajes;
-	/**
-	 * Variable que representa el numero de servidores que van a existir
-	 */
-	private int numServidores;
+
 	/**
 	 *Variable que representa el pool de servidores
 	 */
 	ThreadServidor [] pool;
-	
-	private int numClientes;
-	private int [] mensajesPorCliente;
+
 
 
 
@@ -50,7 +41,7 @@ public class ServidorBuffer
 	{
 		return null;
 	}
-	public ServidorBuffer()
+	public ServidorBuffer(int numServidores, int numMaxClientesPosibles)
 	{
 		
 		Mensajes = new Mensaje [numMaxClientesPosibles];
@@ -62,7 +53,6 @@ public class ServidorBuffer
 			pool[i] = new ThreadServidor();
 		}
 
-		// inicializa los clientes
 
 		//inicializa los thread servidor para que comiencen a responder solicitudes
 		for(int i=0; i< pool.length ;i++)
@@ -72,46 +62,6 @@ public class ServidorBuffer
 
 
 	}
-	public void leerDatos()
-	{
-		JFileChooser chooser = new JFileChooser("./data");
-		chooser.setDialogTitle("Abrir archivo con los datos");
-
-		File datos = null;
-		int resultado = chooser.showOpenDialog(null);
-
-		if(resultado == JFileChooser.APPROVE_OPTION)
-		{
-			datos = chooser.getSelectedFile();
-			try
-			{
-				BufferedReader br = new BufferedReader(new FileReader(datos));
-				String numServidoresS = br.readLine().split(":")[1];
-				numServidores = Integer.parseInt(numServidoresS);
-				
-				String tamanoBufferS = br.readLine().split(":")[1];
-				numMaxClientesPosibles = Integer.parseInt(tamanoBufferS);
-				
-				String tamanoClientes = br.readLine().split(":")[1];
-				numClientes = Integer.parseInt(tamanoClientes);
-				
-				mensajesPorCliente = new int [numClientes];
-				for(int i=0; i< mensajesPorCliente.length;i++)
-				{
-					mensajesPorCliente[i] = Integer.parseInt(br.readLine().split(":")[1]);
-				}
-				
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-			}
-		}
-	}
 
 
-	public static void main(String[] args) 
-	{
-		ServidorBuffer server = new ServidorBuffer();
-	}
 }
