@@ -22,7 +22,7 @@ public class ServidorBuffer
 	/**
 	 * Variable que representa la cola de mensajes que esperan a ser atendidos
 	 */
-	private Mensaje [] Mensajes;
+	private Mensaje [] mensajes;
 
 	/**
 	 *Variable que representa el pool de servidores
@@ -33,33 +33,26 @@ public class ServidorBuffer
 
 
 
-	public boolean atenderMensaje(Mensaje message)
+	public boolean enviarMensaje(Mensaje message)
 	{
 		return false;
 	}
-	public Mensaje responderMensaje()
+	public boolean procesarMensaje()
 	{
-		return null;
+		return mensajes[0] == null;
 	}
 	public ServidorBuffer(int numServidores, int numMaxClientesPosibles)
 	{
 		
-		Mensajes = new Mensaje [numMaxClientesPosibles];
+		mensajes = new Mensaje [numMaxClientesPosibles];
 		// crea el pool de threads servidores que quedan a la espera de mensajes
 
 		pool = new ThreadServidor [numServidores];
 		for(int i=0; i< pool.length ;i++)
 		{
-			pool[i] = new ThreadServidor();
-		}
-
-
-		//inicializa los thread servidor para que comiencen a responder solicitudes
-		for(int i=0; i< pool.length ;i++)
-		{
+			pool[i] = new ThreadServidor(this);
 			pool[i].run();
 		}
-
 
 	}
 

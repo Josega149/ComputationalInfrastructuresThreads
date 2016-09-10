@@ -7,14 +7,28 @@ public class ThreadServidor extends Thread
 	 * 
 	 */
 	
-	public ThreadServidor()
+	private ServidorBuffer servidor;
+	
+	public ThreadServidor(ServidorBuffer server)
 	{
-		
+		servidor = server;
 	}
 	
 	public void run()
 	{
-		
+		while(true)
+		{
+			boolean hayMensajes = servidor.procesarMensaje();
+			if(!hayMensajes)
+			{
+				try {
+					wait();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 
