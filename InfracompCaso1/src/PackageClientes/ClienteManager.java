@@ -9,7 +9,7 @@ public class ClienteManager
 	{
 		for(int i=0; i< numClientes; i++)
 		{
-			listaClientes[i] = new Cliente(numMensajesPorCliente[i]);
+			listaClientes[i] = new Cliente(i, numMensajesPorCliente[i]);
 			listaClientes[i].start();
 		}
 	}
