@@ -18,16 +18,8 @@ public class ThreadServidor extends Thread
 	{
 		while(true)
 		{
-			boolean hayMensajes = servidor.procesarMensaje();
-			if(!hayMensajes)
-			{
-				try {
-					wait();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			servidor.procesarMensaje();
+			
 		}
 	}
 
