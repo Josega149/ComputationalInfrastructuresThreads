@@ -35,7 +35,7 @@ public class ServidorBuffer
 
 
 
-	public boolean enviarMensaje(Mensaje message)
+	public void enviarMensaje(Mensaje message)
 	{
 		notify();
 		ultimoMensajeEnPos +=1;
