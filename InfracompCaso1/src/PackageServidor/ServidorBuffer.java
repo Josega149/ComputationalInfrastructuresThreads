@@ -44,14 +44,21 @@ public class ServidorBuffer
 	public void procesarMensaje()
 	{
 		Mensaje actual = recuperarMensaje(); // recupera el ultimo mensaje de la lista
-		if( ultimoMensajeEnPos == -1)
+		while( actual == null)
 		{
 			try {wait();} catch (InterruptedException e) {e.printStackTrace();}
+			actual = recuperarMensaje(); // recupera el ultimo mensaje de la lista
 		}
+		
+		actual.modificarMensaje();
+		actual.notify();
 	}
 	public synchronized Mensaje recuperarMensaje()
 	{
+		if(ultimoMensajeEnPos <0){return null;}
 		Mensaje recuperado = mensajes[ultimoMensajeEnPos];
+		mensajes[ultimoMensajeEnPos] = null;
+		ultimoMensajeEnPos -= 1;
 		return recuperado;
 	}
 	
