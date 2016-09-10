@@ -9,5 +9,7 @@ public class Cliente extends Thread
 		numMensajesAMandar = numDeMensajesAMandarP;
 		
 	}
+	
+	public void 
 
 }
