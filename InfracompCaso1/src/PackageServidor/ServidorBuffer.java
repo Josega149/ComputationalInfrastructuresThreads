@@ -35,7 +35,9 @@ public class ServidorBuffer
 
 
 
-	try{
+	public boolean enviarMensaje(Mensaje message)
+	{
+		try{
 		notify();
 		ultimoMensajeEnPos +=1;
 		mensajes[ultimoMensajeEnPos] = message;
@@ -45,6 +47,9 @@ public class ServidorBuffer
 		{
 			return false;
 		}
+		
+	}
+
 	public void procesarMensaje()
 	{
 		Mensaje actual = recuperarMensaje(); // recupera el ultimo mensaje de la lista
