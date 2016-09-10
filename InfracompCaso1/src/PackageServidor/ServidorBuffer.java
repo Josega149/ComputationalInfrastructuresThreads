@@ -39,7 +39,7 @@ public class ServidorBuffer
 	{
 		notify();
 		ultimoMensajeEnPos +=1;
-		return false;
+		mensajes[ultimoMensajeEnPos] = message;
 	}
 	public void procesarMensaje()
 	{
