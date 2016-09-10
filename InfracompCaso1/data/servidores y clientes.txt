@@ -1,0 +1,13 @@
+numServidores:20
+colaDe:15
+numClientes:10
+numMensajesCliente1:6
+numMensajesCliente2:3
+numMensajesCliente3:2
+numMensajesCliente4:6
+numMensajesCliente5:7
+numMensajesCliente6:6
+numMensajesCliente7:8
+numMensajesCliente8:6
+numMensajesCliente9:9
+numMensajesCliente10:1
