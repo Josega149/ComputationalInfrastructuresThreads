@@ -37,7 +37,7 @@ public class ServidorBuffer
 
 	public synchronized boolean enviarMensaje(Mensaje message)
 	{
-		if(ultimoMensajeEnPos>0)
+		if(ultimoMensajeEnPos>=0)
 		{
 			notify();
 			ultimoMensajeEnPos +=1;
