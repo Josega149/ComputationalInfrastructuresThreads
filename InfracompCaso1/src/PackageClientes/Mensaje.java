@@ -2,24 +2,24 @@ package PackageClientes;
 
 public class Mensaje {
 	
-	private int mensaje;
+	private String mensaje;
 	
-	public Mensaje (int msj)
+	public Mensaje (String msj)
 	{
 		mensaje = msj;
 	}
 	
 	public void modificarMensaje ()
 	{
-		mensaje++;
+		mensaje+=" MODIFICADO";
 	}
 	
-	public int darMensaje()
+	public String darMensaje()
 	{
 		return mensaje;
 	}
 	
-	public void dormir()
+	public void momir()
 	{
 		try 
 		{
