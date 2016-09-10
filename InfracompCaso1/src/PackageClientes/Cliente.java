@@ -1,6 +1,6 @@
 package PackageClientes;
 
-public class Cliente 
+public class Cliente extends Thread
 {
 	public Cliente(int numDeMensajesAMandar)
 	{
