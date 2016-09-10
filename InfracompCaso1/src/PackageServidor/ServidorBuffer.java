@@ -54,7 +54,7 @@ public class ServidorBuffer
 		for(int i=0; i< pool.length ;i++)
 		{
 			pool[i] = new ThreadServidor(this);
-			pool[i].run();
+			pool[i].start();
 		}
 
 	}

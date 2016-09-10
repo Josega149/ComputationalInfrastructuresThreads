@@ -44,7 +44,7 @@ public class Main
 				{
 					mensajesPorCliente[i] = Integer.parseInt(br.readLine().split(":")[1]);
 				}
-				
+				br.close();
 				ServidorBuffer server = new ServidorBuffer(numServidores, numMaxClientesPosibles);
 				ClienteManager clientes = new ClienteManager(numClientes, mensajesPorCliente);
 				
