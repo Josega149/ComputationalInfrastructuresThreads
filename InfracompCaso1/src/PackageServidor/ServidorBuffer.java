@@ -41,6 +41,9 @@ public class ServidorBuffer
 	{
 		return mensajes[0] == null;
 	}
+	
+	
+	
 	public ServidorBuffer(int numServidores, int numMaxClientesPosibles)
 	{
 		

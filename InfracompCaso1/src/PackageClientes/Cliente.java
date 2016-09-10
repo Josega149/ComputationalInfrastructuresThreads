@@ -2,8 +2,11 @@ package PackageClientes;
 
 public class Cliente extends Thread
 {
-	public Cliente(int numDeMensajesAMandar)
+	private int numMensajesAMandar;
+	
+	public Cliente(int numDeMensajesAMandarP)
 	{
+		numMensajesAMandar = numDeMensajesAMandarP;
 		
 	}
 
