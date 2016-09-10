@@ -27,7 +27,9 @@ public class ServidorBuffer
 	/**
 	 *Variable que representa el pool de servidores
 	 */
-	ThreadServidor [] pool;
+	private ThreadServidor [] pool;
+	
+	private int ultimoMensajeEnPos;
 
 
 
@@ -35,13 +37,23 @@ public class ServidorBuffer
 
 	public boolean enviarMensaje(Mensaje message)
 	{
+		notify();
+		ultimoMensajeEnPos +=1;
 		return false;
 	}
-	public boolean procesarMensaje()
+	public void procesarMensaje()
 	{
-		return mensajes[0] == null;
+		Mensaje actual = recuperarMensaje(); // recupera el ultimo mensaje de la lista
+		if( ultimoMensajeEnPos == -1)
+		{
+			try {wait();} catch (InterruptedException e) {e.printStackTrace();}
+		}
 	}
-	
+	public synchronized Mensaje recuperarMensaje()
+	{
+		Mensaje recuperado = mensajes[ultimoMensajeEnPos];
+		return recuperado;
+	}
 	
 	
 	public ServidorBuffer(int numServidores, int numMaxClientesPosibles)
@@ -56,6 +68,7 @@ public class ServidorBuffer
 			pool[i] = new ThreadServidor(this);
 			pool[i].start();
 		}
+		ultimoMensajeEnPos = -1;
 
 	}
 
