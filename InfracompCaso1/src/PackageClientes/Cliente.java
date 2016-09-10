@@ -10,6 +10,9 @@ public class Cliente extends Thread
 		
 	}
 	
-	public void 
+	public void run()
+	{
+		
+	}
 
 }
