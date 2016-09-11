@@ -40,13 +40,20 @@ public class Main
 				int numClientes = Integer.parseInt(tamanoClientes);
 				
 				int [] mensajesPorCliente = new int [numClientes];
+				String listaString= "";
 				for(int i=0; i< mensajesPorCliente.length;i++)
 				{
-					mensajesPorCliente[i] = Integer.parseInt(br.readLine().split(":")[1]);
+					int linea = Integer.parseInt(br.readLine().split(":")[1]);
+					mensajesPorCliente[i] = linea;
+					listaString += " "+linea;
 				}
+				System.out.println("num clientes" + numClientes);
+				System.out.println("num servidores" + numServidores);
+				System.out.println("num cola " + numMaxClientesPosibles);
+				System.out.println("mensajes por cliente" + listaString);
 				br.close();
 				ServidorBuffer server = new ServidorBuffer(numServidores, numMaxClientesPosibles);
-				ClienteManager clientes = new ClienteManager(numClientes, mensajesPorCliente);
+				ClienteManager clientes = new ClienteManager(numClientes, mensajesPorCliente, server);
 				
 			}
 			catch(Exception e)

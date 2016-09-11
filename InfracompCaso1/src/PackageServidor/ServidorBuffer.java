@@ -48,6 +48,7 @@ public class ServidorBuffer
 			Mensaje recuperado = mensajes[ultimoMensajeEnPos];
 			mensajes[ultimoMensajeEnPos] = null;
 			ultimoMensajeEnPos -= 1;
+			return recuperado;
 		}
 		return null;
 		
@@ -55,33 +56,37 @@ public class ServidorBuffer
 	
 	public synchronized boolean enviarMensaje(Mensaje message)
 	{
+		System.out.println("intenta entrar un mensaje a la cola de mensajes");
 		if(ultimoMensajeEnPos < mensajes.length-1)
 		{
 			//agrega mensaje a la cola
 			agregarRetirarMensajeALaCola(message);
 			//despierta un thread si hay dormido
-			notify();
+			notifyAll();
 			
 			return true;
 		}
 		else
 		{
+			System.out.println(" no logra entrar en la cola de mensajes");
 			return false;
 		}
 		
 	}
 
-	public void procesarMensaje()
+	public synchronized void procesarMensaje()
 	{
+		System.out.println("entra a procesar mensaje");
 		Mensaje actual = agregarRetirarMensajeALaCola(null); // recupera el ultimo mensaje de la lista
 		while( actual == null)
 		{
+			System.out.println("No hay mensajes que atender, thread server se queda dormido");
 			try {wait();} catch (InterruptedException e) {e.printStackTrace();}
 			actual = agregarRetirarMensajeALaCola(null); // recupera el ultimo mensaje de la lista
 		}
-		
+		System.out.println("thread server se despierta con un mensaje para atender");
 		actual.modificarMensaje();
-		actual.notify();
+		actual.despertar();
 	}
 	
 	
@@ -94,7 +99,7 @@ public class ServidorBuffer
 		pool = new ThreadServidor [numServidores];
 		for(int i=0; i< pool.length ;i++)
 		{
-			pool[i] = new ThreadServidor(this);
+			pool[i] = new ThreadServidor(this, i);
 			pool[i].start();
 		}
 		ultimoMensajeEnPos = -1;

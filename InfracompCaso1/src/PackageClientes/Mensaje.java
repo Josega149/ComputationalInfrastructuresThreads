@@ -8,7 +8,19 @@ public class Mensaje {
 	{
 		mensaje = msj;
 	}
-	
+	public synchronized void dormir()
+	{
+		try {
+			wait();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	public synchronized void despertar()
+	{
+		System.out.println(" CLIENTE SE DESPIERTAAAA ");
+		notify();
+	}
 	public void modificarMensaje ()
 	{
 		mensaje+=" MODIFICADO";
