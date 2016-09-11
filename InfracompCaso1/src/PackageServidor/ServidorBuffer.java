@@ -31,17 +31,37 @@ public class ServidorBuffer
 	
 	private int ultimoMensajeEnPos;
 
-
-
-
-
-	public synchronized boolean enviarMensaje(Mensaje message)
+	private synchronized Mensaje agregarRetirarMensajeALaCola(Mensaje message)
 	{
-		if(ultimoMensajeEnPos < mensajes.length)
+		// el acceso a la cola de mensajes debe ser atomico
+		// retirar y agregar mensajes debe hacerse sincronizadamente
+		if(message != null)
 		{
-			notify();
+			//va a agregar mensaje
 			ultimoMensajeEnPos +=1;
 			mensajes[ultimoMensajeEnPos] = message;
+		}
+		else
+		{
+			//va a retirar mensaje
+			if(ultimoMensajeEnPos ==-1){return null;}
+			Mensaje recuperado = mensajes[ultimoMensajeEnPos];
+			mensajes[ultimoMensajeEnPos] = null;
+			ultimoMensajeEnPos -= 1;
+		}
+		return null;
+		
+	}
+	
+	public synchronized boolean enviarMensaje(Mensaje message)
+	{
+		if(ultimoMensajeEnPos < mensajes.length-1)
+		{
+			//agrega mensaje a la cola
+			agregarRetirarMensajeALaCola(message);
+			//despierta un thread si hay dormido
+			notify();
+			
 			return true;
 		}
 		else
@@ -53,23 +73,15 @@ public class ServidorBuffer
 
 	public void procesarMensaje()
 	{
-		Mensaje actual = recuperarMensaje(); // recupera el ultimo mensaje de la lista
+		Mensaje actual = agregarRetirarMensajeALaCola(null); // recupera el ultimo mensaje de la lista
 		while( actual == null)
 		{
 			try {wait();} catch (InterruptedException e) {e.printStackTrace();}
-			actual = recuperarMensaje(); // recupera el ultimo mensaje de la lista
+			actual = agregarRetirarMensajeALaCola(null); // recupera el ultimo mensaje de la lista
 		}
 		
 		actual.modificarMensaje();
 		actual.notify();
-	}
-	public synchronized Mensaje recuperarMensaje()
-	{
-		if(ultimoMensajeEnPos <0){return null;}
-		Mensaje recuperado = mensajes[ultimoMensajeEnPos];
-		mensajes[ultimoMensajeEnPos] = null;
-		ultimoMensajeEnPos -= 1;
-		return recuperado;
 	}
 	
 	
