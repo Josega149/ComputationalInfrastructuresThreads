@@ -38,6 +38,8 @@ public class Cliente extends Thread
 			numMensajesAMandar--;
 			System.out.println(mensajito.darMensaje());
 		}
+		System.out.println("EL CLIENTE SE SALE!");
+		buffer.terminoElCliente();
 	}
 
 }

@@ -4,7 +4,7 @@ public class ThreadServidor extends Thread
 {
 	/**
 	 * Clase que atiende los mensajes del buffer
-	 * 
+	 * Author jg.tamura10
 	 */
 	private int id;
 	private ServidorBuffer servidor;
@@ -17,7 +17,7 @@ public class ThreadServidor extends Thread
 	
 	public void run()
 	{
-		while(true)
+		while(!servidor.termino())
 		{
 			System.out.println("va el hilo: "+id);
 			servidor.procesarMensaje();

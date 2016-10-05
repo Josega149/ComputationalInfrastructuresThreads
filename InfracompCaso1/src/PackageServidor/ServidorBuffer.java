@@ -14,7 +14,7 @@ public class ServidorBuffer
 {
 	/**
 	 * Esta clase es la encargada de crear y manejar los thread servidores
-	 * 
+	 * Author jg.tamura10
 	 * Adicionalmente, debe recibir los mensajes de los clientes en una cola de mensajes
 	 */
 
@@ -30,6 +30,7 @@ public class ServidorBuffer
 	private ThreadServidor [] pool;
 	
 	private int ultimoMensajeEnPos;
+	private int termino;
 
 	private synchronized Mensaje agregarRetirarMensajeALaCola(Mensaje message)
 	{
@@ -79,7 +80,7 @@ public class ServidorBuffer
 		System.out.println("entra a procesar mensaje");
 		Mensaje actual = agregarRetirarMensajeALaCola(null); // recupera el ultimo mensaje de la lista
 		while( actual == null)
-		{
+		{	if(termino()){System.out.println("ya no vendran mas hilos, server se retira");return;}
 			System.out.println("No hay mensajes que atender, thread server se queda dormido");
 			try {wait();} catch (InterruptedException e) {e.printStackTrace();}
 			actual = agregarRetirarMensajeALaCola(null); // recupera el ultimo mensaje de la lista
@@ -89,8 +90,10 @@ public class ServidorBuffer
 		actual.despertar();
 	}
 	
+	public boolean termino(){ return termino==0;}
+	public synchronized void terminoElCliente(){termino-=1;if(termino==0){System.out.println("Los clientes terminaron"); notifyAll();}}
 	
-	public ServidorBuffer(int numServidores, int numMaxClientesPosibles)
+	public ServidorBuffer(int numServidores, int numMaxClientesPosibles, int numClientes)
 	{
 		
 		mensajes = new Mensaje [numMaxClientesPosibles];
@@ -103,6 +106,7 @@ public class ServidorBuffer
 			pool[i].start();
 		}
 		ultimoMensajeEnPos = -1;
+		termino = numClientes;
 
 	}
 

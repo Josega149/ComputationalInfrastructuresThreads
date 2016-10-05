@@ -52,7 +52,7 @@ public class Main
 				System.out.println("num cola " + numMaxClientesPosibles);
 				System.out.println("mensajes por cliente" + listaString);
 				br.close();
-				ServidorBuffer server = new ServidorBuffer(numServidores, numMaxClientesPosibles);
+				ServidorBuffer server = new ServidorBuffer(numServidores, numMaxClientesPosibles, numClientes);
 				ClienteManager clientes = new ClienteManager(numClientes, mensajesPorCliente, server);
 				
 			}
