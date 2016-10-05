@@ -1,0 +1,15 @@
+numServidores:12
+colaDe:15
+numClientes:12
+numMensajesCliente1:12
+numMensajesCliente2:12
+numMensajesCliente3:12
+numMensajesCliente4:12
+numMensajesCliente5:12
+numMensajesCliente6:12
+numMensajesCliente7:12
+numMensajesCliente8:12
+numMensajesCliente9:12
+numMensajesCliente10:12
+numMensajesCliente11:12
+numMensajesCliente12:12

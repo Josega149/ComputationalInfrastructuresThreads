@@ -1,0 +1,4 @@
+numServidores:1
+colaDe:15
+numClientes:1
+numMensajesCliente1:8
