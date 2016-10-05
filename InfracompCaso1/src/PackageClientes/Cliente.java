@@ -25,7 +25,8 @@ public class Cliente extends Thread
 		int num = -1;
 		while (numMensajesAMandar>0)
 		{
-			Mensaje mensajito = new Mensaje(id+" "+ num++);
+			num+=1;
+			Mensaje mensajito = new Mensaje(id+" "+ num);
 			mensajes[num] = mensajito;
 			boolean sePudoMandar = buffer.enviarMensaje(mensajito);
 			while (!sePudoMandar)
