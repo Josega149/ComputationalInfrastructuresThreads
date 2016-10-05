@@ -1,0 +1,9 @@
+numServidores:4
+colaDe:15
+numClientes:6
+numMensajesCliente1:7
+numMensajesCliente2:7
+numMensajesCliente3:7
+numMensajesCliente4:7
+numMensajesCliente5:7
+numMensajesCliente6:7
